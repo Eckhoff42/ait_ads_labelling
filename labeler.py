@@ -27,6 +27,9 @@ def check_sequence(filename):
 
 
 def get_attack_times(filename, scenario_name):
+    """
+    Read the csv file containing information about attack start and end times. return a list of tuples `<attack name, start time and end time>` for a given scenario.
+    """
     attack_times = []
     with open(filename, "r") as file:
         for line in file:
@@ -80,6 +83,9 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
 
 
 def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
+    """
+    Label both the aminer and wazuh files for a specific scenario. Outputs are saved to files in the `output_dir` directory.
+    """
     aminer_filename = scenario_name + "_aminer.json"
     wazuh_filename = scenario_name + "_wazuh.json"
     label_filename = label_filename
