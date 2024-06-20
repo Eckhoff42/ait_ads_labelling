@@ -1,10 +1,6 @@
+from argparse import ArgumentParser
 from datetime import datetime
 import json
-
-scenario_name = "shaw"
-alert_filename_aminer = "shaw_aminer_test.json"
-alert_filename_wazuh = "shaw_wazuh.json"
-label_filename = "labels.csv"
 
 
 def check_sequence(filename):
@@ -40,9 +36,10 @@ def get_attack_times(filename, scenario_name):
     return attack_times
 
 
-def label_aminer(filename, attack_times):
-    output_file = open("labeled_" + filename, "w")
-    with open(filename, "r", encoding="utf-8") as file:
+def label_aminer(filename, attack_times, dataset_dir, output_dir):
+    output_file = open(output_dir + "/labeled_" + filename, "w")
+
+    with open(dataset_dir + "/" + filename, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
 
@@ -58,9 +55,9 @@ def label_aminer(filename, attack_times):
     output_file.close()
 
 
-def label_wazuh(filename, attack_times):
-    output_file = open("labeled_" + filename, "w")
-    with open(filename, "r", encoding="utf-8") as file:
+def label_wazuh(filename, attack_times, dataset_dir, output_dir):
+    output_file = open(output_dir + "/labeled_" + filename, "w")
+    with open(dataset_dir + "/" + filename, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
 
@@ -76,15 +73,94 @@ def label_wazuh(filename, attack_times):
             obj["Label"] = []
             for attack, start, end in attack_times:
                 if start <= detection_time <= end:
-                    print("HIT!", attack)
                     obj["Label"].append(attack)
 
             output_file.write(json.dumps(obj) + "\n")
     output_file.close()
 
 
-if __name__ == "__main__":
-    # check_sequence(label_filename)
+def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
+    aminer_filename = scenario_name + "_aminer.json"
+    wazuh_filename = scenario_name + "_wazuh.json"
+    label_filename = label_filename
     attack_times = get_attack_times(label_filename, scenario_name)
-    # label_aminer(alert_filename_aminer, attack_times)
-    label_wazuh(alert_filename_wazuh, attack_times)
+
+    sucess = True
+    try:
+        label_aminer(aminer_filename, attack_times, dataset_dir, output_dir)
+        print(
+            "✅ Created new file:",
+            output_dir + "/labeled_" + scenario_name + "_aminer.json",
+        )
+    except:
+        print("❌ Failed labeling the file", aminer_filename)
+        sucess = False
+
+    try:
+        label_wazuh(wazuh_filename, attack_times, dataset_dir, output_dir)
+        print(
+            "✅ Created new file:",
+            output_dir + "/labeled_" + scenario_name + "_wazuh.json",
+        )
+    except:
+        print("❌ Failed labeling the file", wazuh_filename)
+        sucess = False
+
+    if sucess:
+        print("✅ Parsing complete for scenario", scenario_name)
+    else:
+        print("❌ Parsing failed for scenario", scenario_name)
+
+
+if __name__ == "__main__":
+    scenario_options = [
+        "russellmitchell",
+        "fox",
+        "harrison",
+        "santos",
+        "shaw",
+        "wardbeck",
+        "wheeler",
+        "wilson",
+        "all",
+    ]
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--scenario",
+        help="The name of the scenario",
+        choices=scenario_options,
+        default="all",
+    )
+    parser.add_argument(
+        "--label_filename",
+        help="the csv file containing infomation about the attacks",
+        default="labels.csv",
+    )
+    parser.add_argument(
+        "--dataset_dir", help="the directory containing the datasets", default="."
+    )
+    parser.add_argument(
+        "--output_dir",
+        help="the directory to output the labeled datasets",
+        default="labeled",
+    )
+
+    arguments = parser.parse_args()
+    print(arguments)
+
+    if arguments.scenario != "all":
+        full_convert(
+            arguments.scenario,
+            arguments.label_filename,
+            arguments.dataset_dir,
+            arguments.output_dir,
+        )
+    else:
+        for scenario in scenario_options[:-1]:
+            print("⌛ Parsing scenario: ", scenario)
+            full_convert(
+                scenario,
+                arguments.label_filename,
+                arguments.dataset_dir,
+                arguments.output_dir,
+            )
