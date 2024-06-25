@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from datetime import datetime
 import json
+import os
 
 
 def check_sequence(filename):
@@ -91,6 +92,9 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
     label_filename = label_filename
     attack_times = get_attack_times(label_filename, scenario_name)
 
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     sucess = True
     try:
         label_aminer(aminer_filename, attack_times, dataset_dir, output_dir)
@@ -152,7 +156,6 @@ if __name__ == "__main__":
     )
 
     arguments = parser.parse_args()
-    print(arguments)
 
     if arguments.scenario != "all":
         full_convert(
