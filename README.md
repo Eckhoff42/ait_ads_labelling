@@ -41,7 +41,7 @@ options:
     the directory to output the labeled datasets
 ```
 
-## Label distribution
+## Label distribution aminer
 | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
 | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 0 | 0 | 0 | 0 | 9 | 0 | 20 | 25 |
@@ -59,3 +59,22 @@ options:
 | ['reverse_shell', 'privilege_escalation'] | 0 | 0 | 0 | 12 | 0 | 0 | 7 | 7 |
 | ['network_scans', 'service_scans'] | 0 | 0 | 0 | 0 | 0 | 0 | 20 | 25 |
 | ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 38 |
+
+## Label distribution wazuh
+| russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
+| --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
+| network_scans | 8 | 323 | 300 | 104 | 3 | 3 | 643 | 190 |
+| service_scans | 167 | 140 | 769 | 90 | 1 | 56 | 167 | 390 |
+| dirb | 4459 | 406083 | 411477 | 4459 | 4459 | 4459 | 413009 | 424361 |
+| wpscan | 3172 | 4985 | 4848 | 3274 | 933 | 910 | 6670 | 3247 |
+| webshell | 4 | 0 | 31 | 13 | 0 | 13 | 8 | 40 |
+| cracking | 10 | 554 | 1251 | 773 | 647 | 752 | 0 | 1284 |
+| reverse_shell | 0 | 0 | 19 | 6 | 3 | 6 | 26 | 20 |
+| privilege_escalation | 6 | 10 | 49 | 22 | 19 | 13 | 25 | 22 |
+| service_stop | 0 | 0 | 20 | 0 | 0 | 0 | 0 | 0 |
+| dnsteal | 711 | 381 | 3236 | 831 | 105 | 17 | 461 | 2861 |
+| ['wpscan', 'dirb'] | 0 | 236 | 0 | 0 | 204 | 160 | 0 | 11 |
+| ['network_scans', 'service_scans'] | 0 | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
+| ['service_stop', 'dnsteal'] | 0 | 0 | 16 | 0 | 0 | 0 | 0 | 0 |
+| ['reverse_shell', 'privilege_escalation'] | 0 | 0 | 0 | 3 | 0 | 0 | 2 | 3 |
+| ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 26 | 219 |

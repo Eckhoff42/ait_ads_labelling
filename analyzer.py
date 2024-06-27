@@ -17,7 +17,6 @@ def count_attack_freqencies(dataset_name, attack_times):
     with open(dataset_name, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
-            time = int(obj["LogData"]["DetectionTimestamp"][0])
             labels = obj["Label"]
             for l in labels:
                 attack_freqency[l] += 1
@@ -64,8 +63,6 @@ def print_attack_frequencies(attack_frequencies):
 
 
 if __name__ == "__main__":
-    scenario = "fox"
-    dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
     labelfile = "labels.csv"
 
     attack_frequencies = []
@@ -73,7 +70,7 @@ if __name__ == "__main__":
         if scenario == "all":
             continue
         print("Analyzing scenario:", scenario)
-        dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
+        dataset_name = "labeled/labeled_" + scenario + "_wazuh.json"
         attack_times = get_attack_times(labelfile, scenario)
         attack_frequencies.append(count_attack_freqencies(dataset_name, attack_times))
 
