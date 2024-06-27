@@ -28,16 +28,19 @@ A false positive will have an empty list as a label
 usage: labeler.py [options]
 
 options:
-  -h, --help            
-    show this help message and exit
-  --scenario {russellmitchell,fox,harrison,santos,shaw,wardbeck,wheeler,wilson,all}
-    The name of the scenario.
-  --label_filename LABEL_FILENAME
-    the full path to the csv file containing infomation about the attacks
-  --dataset_dir DATASET_DIR
-    the directory containing the datasets
-  --output_dir OUTPUT_DIR
-    the directory to output the labeled datasets
+  -h, --help            show this help message and exit
+  -s --scenario {russellmitchell,fox,harrison,santos,shaw,wardbeck,wheeler,wilson,all}
+    The name of the scenario. 
+    Default: 'all'
+  -lf --label_filename LABEL_FILENAME
+    the csv file containing infomation about the attacks. 
+    Default: 'labels.csv'
+  -dd --dataset_dir DATASET_DIR
+    the directory containing the datasets. 
+    Default '.'
+  -od --output_dir OUTPUT_DIR
+    the directory to output the labeled datasets. 
+    Default: 'labeled'
 ```
 
 ## Distributions

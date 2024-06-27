@@ -36,16 +36,21 @@ def check_sequence(filename):
                 previous_end = int(end[:-2])
 
 
-def get_attack_times(filename: str, scenario_name: str):
+def get_attack_times(filename: str, scenario_name: str, start_offset=0, end_offset=0):
     """
-    Read the csv file containing information about attack start and end times. return a list of tuples `<attack name, start time and end time>` for a given scenario.
+    Read the csv file containing information about attack start and end times.
+
+    Returns:
+        a list of tuples `<attack name, start time and end time>` for a given scenario.
     """
     attack_times = []
     with open(filename, "r") as file:
         for line in file:
             scenario, attack, start, end = line.strip().split(",")
             if scenario == scenario_name:
-                attack_times.append((attack, int(start[:-2]), int(end[:-2])))
+                attack_times.append(
+                    (attack, int(start[:-2]) + start_offset, int(end[:-2]) + end_offset)
+                )
     return attack_times
 
 
@@ -111,8 +116,9 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
             "✅ Created new file:",
             output_dir + "/labeled_" + scenario_name + "_aminer.json",
         )
-    except:
+    except Exception as e:
         print("❌ Failed labeling the file", aminer_filename)
+        print(e)
         sucess = False
 
     try:
@@ -121,8 +127,9 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
             "✅ Created new file:",
             output_dir + "/labeled_" + scenario_name + "_wazuh.json",
         )
-    except:
+    except Exception as e:
         print("❌ Failed labeling the file", wazuh_filename)
+        print(e)
         sucess = False
 
     if sucess:
@@ -132,27 +139,31 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
 
 
 if __name__ == "__main__":
-    check_sequence("labels.csv")
-    exit(0)
 
     parser = ArgumentParser()
     parser.add_argument(
+        "-s",
         "--scenario",
-        help="The name of the scenario",
+        help="The name of the scenario. Default: 'all'",
         choices=scenario_options,
         default="all",
     )
     parser.add_argument(
+        "-lf",
         "--label_filename",
-        help="the csv file containing infomation about the attacks",
+        help=f"the csv file containing infomation about the attacks. Default: 'labels.csv'",
         default="labels.csv",
     )
     parser.add_argument(
-        "--dataset_dir", help="the directory containing the datasets", default="."
+        "-dd",
+        "--dataset_dir",
+        help="the directory containing the datasets. Default: '.'",
+        default=".",
     )
     parser.add_argument(
+        "-od",
         "--output_dir",
-        help="the directory to output the labeled datasets",
+        help="the directory to output the labeled datasets. Default: 'labeled'",
         default="labeled",
     )
 
