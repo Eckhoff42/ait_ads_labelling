@@ -17,25 +17,22 @@ scenario_options = [
 
 
 def check_sequence(filename):
+    """
+    Check the attack times in the labels csv file to see if two attacks are happening at the same time in the same scenario.
+    """
     with open(filename, "r") as file:
         previous_end = 0
-        previous_scenario = ""
+        previous_attack = ""
         for line in file:
             scenario, attack, start, end = line.strip().split(",")
             if scenario == "scenario":
                 continue
-            if previous_scenario == scenario:
-                if previous_end > int(start[:-2]):
-                    print("")
-                    print(
-                        "Sequence error:",
-                        scenario,
-                        attack,
-                        start,
-                        end,
-                    )
+            if previous_end > int(start[:-2]):
+                print(
+                    f"{scenario:8} Sequence error: {previous_attack} and {attack:20} {start} {end}"
+                )
             else:
-                previous_scenario = scenario
+                previous_attack = attack
                 previous_end = int(end[:-2])
 
 
@@ -135,6 +132,8 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
 
 
 if __name__ == "__main__":
+    check_sequence("labels.csv")
+    exit(0)
 
     parser = ArgumentParser()
     parser.add_argument(
