@@ -1,6 +1,6 @@
 # Automatic labeler AIT-ADS
 
-A simple python script to label the datasets from [AIT_ADS](https://zenodo.org/records/8263181).
+A python script to label the datasets from [AIT_ADS](https://zenodo.org/records/8263181).
 Any alert happening in the time scope of an attack (as specified in the label file) is labeled as that attack.
 Multiple attacks happening at once have multiple labels.
 
@@ -20,7 +20,6 @@ A false positive will have an empty list as a label
   "Label": []
 }
 ```
-
 ## How to run
 1. Download and extract the AIT-ADS dataset from here: https://zenodo.org/records/8263181
 2. Make sure to also download the the `labels.csv` file
@@ -41,7 +40,8 @@ options:
     the directory to output the labeled datasets
 ```
 
-## Label distribution aminer
+## Distributions
+### Label distribution (Aminer)
 | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
 | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 0 | 0 | 0 | 0 | 9 | 0 | 20 | 25 |
@@ -60,7 +60,7 @@ options:
 | ['network_scans', 'service_scans'] | 0 | 0 | 0 | 0 | 0 | 0 | 20 | 25 |
 | ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 38 |
 
-## Label distribution wazuh
+### Label distribution (Wazuh)
 | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
 | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 8 | 323 | 300 | 104 | 3 | 3 | 643 | 190 |
@@ -78,3 +78,125 @@ options:
 | ['service_stop', 'dnsteal'] | 0 | 0 | 16 | 0 | 0 | 0 | 0 | 0 |
 | ['reverse_shell', 'privilege_escalation'] | 0 | 0 | 0 | 3 | 0 | 0 | 2 | 3 |
 | ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 26 | 219 |
+
+### Message distribution for Scenario Fox (Aminer)
+```json
+"service_stop": {
+    "New value combination(s) detected": 2
+},
+"dnsteal": {
+    "Value entropy anomaly detected": 6,
+    "Frequency anomaly detected": 1
+},
+"service_scans": {
+    "New path(es) detected": 106,
+    "New value(s) detected": 24
+},
+"wpscan": {
+    "New value(s) detected": 4748,
+    "New path(es) detected": 36,
+    "New character(s) detected": 32
+},
+"dirb": {
+    "New value(s) detected": 721,
+    "New character(s) detected": 2457,
+    "New path(es) detected": 1300,
+    "Frequency anomaly detected": 3
+},
+"webshell": {
+    "Value entropy anomaly detected": 2
+},
+"cracking": {
+    "Value entropy anomaly detected": 1,
+    "Frequency anomaly detected": 3,
+    "Statistical data report": 1
+},
+"reverse_shell": {
+    "Value entropy anomaly detected": 1
+},
+"privilege_escalation": {
+    "New path(es) detected": 3,
+    "New value combination(s) detected": 4
+}
+```
+
+### Message distribution for Scenario Fox (Wazuh)
+```json
+"dnsteal": {
+    "Dovecot Authentication Success.": 336,
+    "IDS event.": 17,
+    "Suricata: Alert - ET INFO Observed DNS Query to .cloud TLD": 1,
+    "Suricata: Alert - SURICATA TLS invalid handshake message": 8,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 8,
+    "CMS (WordPress or Joomla) login attempt.": 1,
+    "ClamAV database update": 10
+},
+"network_scans": {
+    "Dovecot Authentication Success.": 123,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 50,
+    "IDS event.": 98,
+    "Suricata: Alert - SURICATA TLS invalid handshake message": 50,
+    "Multiple IDS alerts for same id.": 1,
+    "Multiple IDS events from same source ip.": 1
+},
+"service_scans": {
+    "Dovecot Authentication Success.": 6,
+    "sshd: insecure connection attempt (scan).": 7,
+    "Web server 400 error code.": 37,
+    "Apache: Attempt to access forbidden file or directory.": 24,
+    "Suricata: Alert - SURICATA SMTP no server welcome message": 2,
+    "First time this IDS alert is generated.": 9,
+    "Suricata: Alert - SURICATA SMTP invalid reply": 2,
+    "Multiple web server 400 error codes from same source ip.": 2,
+    "IDS event.": 21,
+    "Suricata: Alert - SURICATA TLS invalid SSLv2 header": 2,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 2,
+    "Suricata: Alert - ET SCAN Possible Nmap User-Agent Observed": 24,
+    "Multiple IDS alerts for same id.": 1,
+    "Multiple IDS events from same source ip.": 1
+},
+"wpscan": {
+    "Web server 400 error code.": 4589,
+    "Multiple web server 400 error codes from same source ip.": 353,
+    "Apache: Attempt to access forbidden directory index.": 1,
+    "Web server 500 error code (Internal Error).": 9,
+    "Apache: Attempt to access forbidden file or directory.": 10,
+    "Dovecot Authentication Success.": 12,
+    "Suspicious URL access.": 10,
+    "Common web attack.": 1
+},
+"dirb": {
+    "Web server 400 error code.": 375637,
+    "Multiple web server 400 error codes from same source ip.": 28946,
+    "Suspicious URL access.": 456,
+    "Common web attack.": 182,
+    "Apache: Attempt to access forbidden file or directory.": 547,
+    "Apache: Attempt to access forbidden directory index.": 82,
+    "Dovecot Authentication Success.": 216,
+    "Web server 500 error code (Internal Error).": 5,
+    "IDS event.": 4,
+    "Suricata: Alert - SURICATA TLS invalid handshake message": 2,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 2,
+    "ClamAV database update": 4
+},
+"cracking": {
+    "Dovecot Authentication Success.": 162,
+    "Suricata: Alert - SURICATA HTTP unable to match response to request": 2,
+    "IDS event.": 183,
+    "Suricata: Alert - SURICATA TLS invalid handshake message": 94,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 94,
+    "Multiple IDS alerts for same id.": 5,
+    "ClamAV database update": 6,
+    "Multiple IDS events from same source ip.": 1,
+    "First time this IDS alert is generated.": 1,
+    "PAM: User login failed.": 1,
+    "Dovecot Invalid User Login Attempt.": 3,
+    "syslog: User authentication failure.": 2
+},
+"privilege_escalation": {
+    "User successfully changed UID.": 1,
+    "PAM: Login session opened.": 4,
+    "Successful sudo to ROOT executed.": 3,
+    "PAM: Login session closed.": 2
+}
+```
