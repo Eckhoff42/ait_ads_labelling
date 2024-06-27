@@ -47,11 +47,11 @@ options:
 ```bash 
 .
 ├── README.md
-├── ait_ads             # default AIT_ADS dataset location 
-    ├── fox_aminer.json # example
+├~~  ait_ads             # default AIT_ADS dataset location 
+    ├~~ fox_aminer.json # example
 ├── analyzer.py         # analyze labeled files
-├── labeled             # default labeled files location
-│   ├── labeled_fox_aminer.json # example
+├~~ labeled             # default labeled files location
+│   ├~~ labeled_fox_aminer.json # example
 ├── labeler.py          # Create labeled files from ait_ads and labels.csv
 ├── labels.csv          # default label csv file location
 ```
