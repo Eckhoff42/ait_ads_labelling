@@ -37,10 +37,23 @@ options:
     Default: 'labels.csv'
   -dd --dataset_dir DATASET_DIR
     the directory containing the datasets. 
-    Default '.'
+    Default: 'ait_ads'
   -od --output_dir OUTPUT_DIR
     the directory to output the labeled datasets. 
     Default: 'labeled'
+```
+
+## file structure
+```bash 
+.
+├── README.md
+├── ait_ads             # default AIT_ADS dataset location 
+    ├── fox_aminer.json # example
+├── analyzer.py         # analyze labeled files
+├── labeled             # default labeled files location
+│   ├── labeled_fox_aminer.json # example
+├── labeler.py          # Create labeled files from ait_ads and labels.csv
+├── labels.csv          # default label csv file location
 ```
 
 ## Distributions

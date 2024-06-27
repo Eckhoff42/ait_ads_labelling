@@ -158,7 +158,7 @@ if __name__ == "__main__":
         "-dd",
         "--dataset_dir",
         help="the directory containing the datasets. Default: '.'",
-        default=".",
+        default="ait_ads",
     )
     parser.add_argument(
         "-od",
