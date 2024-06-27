@@ -3,6 +3,18 @@ from datetime import datetime
 import json
 import os
 
+scenario_options = [
+    "russellmitchell",
+    "fox",
+    "harrison",
+    "santos",
+    "shaw",
+    "wardbeck",
+    "wheeler",
+    "wilson",
+    "all",
+]
+
 
 def check_sequence(filename):
     with open(filename, "r") as file:
@@ -27,7 +39,7 @@ def check_sequence(filename):
                 previous_end = int(end[:-2])
 
 
-def get_attack_times(filename, scenario_name):
+def get_attack_times(filename: str, scenario_name: str):
     """
     Read the csv file containing information about attack start and end times. return a list of tuples `<attack name, start time and end time>` for a given scenario.
     """
@@ -123,17 +135,7 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
 
 
 if __name__ == "__main__":
-    scenario_options = [
-        "russellmitchell",
-        "fox",
-        "harrison",
-        "santos",
-        "shaw",
-        "wardbeck",
-        "wheeler",
-        "wilson",
-        "all",
-    ]
+
     parser = ArgumentParser()
     parser.add_argument(
         "--scenario",
