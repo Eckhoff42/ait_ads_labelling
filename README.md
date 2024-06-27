@@ -20,7 +20,7 @@ A false positive will have an empty list as a label
   "Label": []
 }
 ```
-## How to run
+## How to run `labeler.py`
 1. Download and extract the AIT-ADS dataset from here: https://zenodo.org/records/8263181
 2. Make sure to also download the the `labels.csv` file
 3. Run the command line tool
