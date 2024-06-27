@@ -97,21 +97,32 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
     output_file.close()
 
 
-def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
+def full_convert(
+    scenario_name, label_filename, dataset_dir, output_dir, start_offset, end_offset
+):
     """
     Label both the aminer and wazuh files for a specific scenario. Outputs are saved to files in the `output_dir` directory.
     """
     aminer_filename = scenario_name + "_aminer.json"
     wazuh_filename = scenario_name + "_wazuh.json"
     label_filename = label_filename
-    attack_times = get_attack_times(label_filename, scenario_name)
+    attack_times = get_attack_times(
+        label_filename, scenario_name, start_offset, end_offset
+    )
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     sucess = True
     try:
-        label_aminer(aminer_filename, attack_times, dataset_dir, output_dir)
+        label_aminer(
+            aminer_filename,
+            attack_times,
+            dataset_dir,
+            output_dir,
+            start_offset,
+            end_offset,
+        )
         print(
             "✅ Created new file:",
             output_dir + "/labeled_" + scenario_name + "_aminer.json",
@@ -122,7 +133,14 @@ def full_convert(scenario_name, label_filename, dataset_dir, output_dir):
         sucess = False
 
     try:
-        label_wazuh(wazuh_filename, attack_times, dataset_dir, output_dir)
+        label_wazuh(
+            wazuh_filename,
+            attack_times,
+            dataset_dir,
+            output_dir,
+            start_offset,
+            end_offset,
+        )
         print(
             "✅ Created new file:",
             output_dir + "/labeled_" + scenario_name + "_wazuh.json",
@@ -166,6 +184,20 @@ if __name__ == "__main__":
         help="the directory to output the labeled datasets. Default: 'labeled'",
         default="labeled",
     )
+    parser.add_argument(
+        "-so",
+        "--start_offset",
+        help="number of seconds offset to add to the start time of the attacks. Default: 0",
+        type=int,
+        default=0,
+    )
+    parser.add_argument(
+        "-eo",
+        "--end_offset",
+        help="number of seconds offset to add to the end time of the attacks. Default: 0",
+        type=int,
+        default=0,
+    )
 
     arguments = parser.parse_args()
 
@@ -175,6 +207,8 @@ if __name__ == "__main__":
             arguments.label_filename,
             arguments.dataset_dir,
             arguments.output_dir,
+            arguments.start_offset,
+            arguments.end_offset,
         )
     else:
         for scenario in scenario_options[:-1]:
@@ -184,4 +218,6 @@ if __name__ == "__main__":
                 arguments.label_filename,
                 arguments.dataset_dir,
                 arguments.output_dir,
+                arguments.start_offset,
+                arguments.end_offset,
             )
