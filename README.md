@@ -15,12 +15,18 @@ The the label is an extra `Label` list in each jason object.
 
 ## How to run `labeler.py`
 1. Download and extract the AIT-ADS dataset from here: https://zenodo.org/records/8263181
-2. Make sure to also download the the `labels.csv` file
+    - default location is `/ait_ads`
 3. Run the command line tool
-```bash
-usage: labeler.py [options]
 
-options:
+Usage:
+
+```bash
+python3 labeler.py [options]
+```
+
+Options:
+
+```bash
   -h, --help            show this help message and exit
   -s --scenario {russellmitchell,fox,harrison,santos,shaw,wardbeck,wheeler,wilson,all}
     The name of the scenario. 
@@ -34,6 +40,12 @@ options:
   -od --output_dir OUTPUT_DIR
     the directory to output the labeled datasets. 
     Default: 'labeled'
+  -so START_OFFSET, --start_offset START_OFFSET
+    number of seconds offset to add to the start time of the attacks.
+    Default: 0
+  -eo END_OFFSET, --end_offset END_OFFSET
+    number of seconds offset to add to the end time of the attacks.
+    Default: 0
 ```
 
 ## File structure
