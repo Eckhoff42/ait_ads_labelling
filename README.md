@@ -2,7 +2,7 @@
 
 A python script to label the datasets from [AIT_ADS](https://zenodo.org/records/8263181).
 Any alert happening in the time scope of an attack (as specified in the label file) is labeled as that attack.
-Multiple attacks happening at once have multiple labels.
+Multiple attacks happening at once have multiple labels. A false positive will have an empty list as a label
 
 The the label is an extra `Label` list in each jason object.
 ```json
@@ -12,14 +12,7 @@ The the label is an extra `Label` list in each jason object.
   "Label": ["dirb"]
 }
 ```
-A false positive will have an empty list as a label
-```json
-{
-  ...,
-  "AMiner": {"ID": "10.35.35.206"},
-  "Label": []
-}
-```
+
 ## How to run `labeler.py`
 1. Download and extract the AIT-ADS dataset from here: https://zenodo.org/records/8263181
 2. Make sure to also download the the `labels.csv` file
@@ -43,11 +36,11 @@ options:
     Default: 'labeled'
 ```
 
-## file structure
+## File structure
 ```bash 
 .
 ├── README.md
-├~~  ait_ads             # default AIT_ADS dataset location 
+├~~  ait_ads            # default AIT_ADS dataset location 
     ├~~ fox_aminer.json # example
 ├── analyzer.py         # analyze labeled files
 ├~~ labeled             # default labeled files location
