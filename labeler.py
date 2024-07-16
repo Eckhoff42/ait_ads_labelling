@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from datetime import datetime
 import json
 import os
+import pandas as pd
 
 scenario_options = [
     "russellmitchell",
@@ -15,6 +16,54 @@ scenario_options = [
     "all",
 ]
 
+noise_messages = [
+"Web server 400 error code.",
+"IDS event.",
+"Dovecot Authentication Success.",
+"Multiple web server 400 error codes from same source ip.",
+"Suricata: Alert - SURICATA TLS invalid record/traffic",
+"Suricata: Alert - SURICATA TLS invalid handshake message",
+"Suricata: Alert - ET INFO Observed DNS Query to .biz TLD",
+"ClamAV database update",
+"Multiple IDS alerts for same id.",
+"Suricata: Alert - ET POLICY GNU/Linux APT User-Agent Outbound likely related to package management",
+"Multiple IDS events from same source ip.",
+"Multiple IDS alerts for same id (ignoring now this id).",
+"Dovecot Invalid User Login Attempt.",
+"PAM: User login failed.",
+"First time this IDS alert is generated.",
+"Suricata: Alert - ET INFO Observed DNS Query to .cloud TLD",
+"syslog: User authentication failure.",
+"CMS (WordPress or Joomla) login attempt.",
+"Suricata: Alert - SURICATA HTTP unable to match response to request",
+"Apache: Attempt to access forbidden directory index.",
+"Multiple IDS events from same source ip (ignoring now this srcip and id).",
+"PAM: Login session opened.",
+"Auditd: SELinux permission check.",
+"PAM: Login session closed.",
+"Suricata: Alert - ET DNS Query for .to TLD",
+"Web server 500 error code (Internal Error).",
+"Suricata: Alert - ET DNS Query for .cc TLD",
+"Suricata: Alert - ET HUNTING Possible COVID-19 Domain in SSL Certificate M2",
+"sshd: authentication success.",
+"Suricata: Alert - SURICATA HTTP gzip decompression failed",
+"Suricata: Alert - ET HUNTING Suspicious Domain Request for Possible COVID-19 Domain M1",
+"Successful sudo to ROOT executed.",
+"Suricata: Alert - ET HUNTING Suspicious TLS SNI Request for Possible COVID-19 Domain M1",
+"Suricata: Alert - ET INFO DNS Query for Suspicious .ga Domain",
+"Suricata: Alert - ET INFO Suspicious Domain (*.ga) in TLS SNI",
+"Suricata: Alert - SURICATA TLS invalid SSLv2 header",
+"Suricata: Alert - SURICATA SMTP no server welcome message",
+"Suricata: Alert - SURICATA SMTP invalid reply",
+"First time user executed sudo.",
+"Suricata: Alert - SURICATA HTTP invalid response chunk len",
+"Suricata: Alert - ET INFO TLS Handshake Failure",
+"Suricata: Alert - ET INFO Session Traversal Utilities for NAT (STUN Binding Request)",
+"Suricata: Alert - SURICATA TLS invalid record type",
+"User successfully changed UID.",
+"Suricata: Alert - SURICATA TLS certificate invalid der",
+"Suricata: Alert - SURICATA DNS Unsolicited response",
+]
 
 def check_sequence(filename):
     """
@@ -63,7 +112,6 @@ def label_aminer(filename, attack_times, dataset_dir, output_dir):
 
             detection_time = int(obj["LogData"]["DetectionTimestamp"][0])
 
-            ## assumes only one attack can happen at a specific time
             obj["Label"] = []
             for attack, start, end in attack_times:
                 if start <= detection_time <= end:
@@ -78,6 +126,12 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
     with open(dataset_dir + "/" + filename, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
+
+            # if remove_noise argument in argumentParser() is stored as true, then remove the noise messages
+            
+            if arguments.remove_noise:
+                if obj["rule"]["description"] in noise_messages:
+                    continue
 
             # get the detection time as epoch time
             detection_time = obj["@timestamp"]
@@ -119,9 +173,7 @@ def full_convert(
             aminer_filename,
             attack_times,
             dataset_dir,
-            output_dir,
-            start_offset,
-            end_offset,
+            output_dir
         )
         print(
             "✅ Created new file:",
@@ -137,9 +189,7 @@ def full_convert(
             wazuh_filename,
             attack_times,
             dataset_dir,
-            output_dir,
-            start_offset,
-            end_offset,
+            output_dir
         )
         print(
             "✅ Created new file:",
@@ -157,7 +207,6 @@ def full_convert(
 
 
 if __name__ == "__main__":
-
     parser = ArgumentParser()
     parser.add_argument(
         "-s",
@@ -197,6 +246,13 @@ if __name__ == "__main__":
         help="number of seconds offset to add to the end time of the attacks. Default: 0",
         type=int,
         default=0,
+    )
+    parser.add_argument(
+        "-rn",
+        "--remove_noise",
+        help="If flag is set: remove alerts from the wazuh dataset that should not be there. Default: False",
+        action="store_true",
+        default=False,
     )
 
     arguments = parser.parse_args()

@@ -46,6 +46,9 @@ Options:
   -eo END_OFFSET, --end_offset END_OFFSET
     number of seconds offset to add to the end time of the attacks.
     Default: 0
+  -rn, --remove_noise  
+    If flag is set: remove alerts from the wazuh dataset that should not be there. 
+    Default: False
 ```
 
 ## File structure
