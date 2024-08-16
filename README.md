@@ -66,8 +66,8 @@ Options:
 
 ## Distributions
 ### Label distribution (Aminer)
-| russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
-| --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
+|attack type | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
+|----------- | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 0 | 0 | 0 | 0 | 9 | 0 | 20 | 25 |
 | service_scans | 200 | 130 | 60 | 33 | 2 | 107 | 141 | 196 |
 | dirb | 63 | 4481 | 4534 | 63 | 63 | 63 | 4533 | 4535 |
@@ -85,8 +85,8 @@ Options:
 | ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 38 |
 
 ### Label distribution (Wazuh)
-| russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
-| --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
+|attack type | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
+| ---------- | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 8 | 323 | 300 | 104 | 3 | 3 | 643 | 190 |
 | service_scans | 167 | 140 | 769 | 90 | 1 | 56 | 167 | 390 |
 | dirb | 4459 | 406083 | 411477 | 4459 | 4459 | 4459 | 413009 | 424361 |
