@@ -115,16 +115,16 @@ def label_aminer(filename, attack_times, dataset_dir, output_dir):
 
             possible_labels = []
             for attack, start, end in attack_times:
-                if start <= detection_time <= end:
+                if start <= detection_time < end:
                     possible_labels.append(attack)
 
-            if len(possible_labels) > 1:
-                correct_label = find_correct_label(possible_labels, obj)
-                obj["Label"] = correct_label
+            if len(possible_labels) == 0:
+                possible_labels.append("benign")
             elif len(possible_labels) == 1:
-                obj["Label"] = possible_labels[0]
+                obj["Label"] = possible_labels
             else:
-                obj["Label"] = "benign"
+                print("🚨 Multiple labels for object", obj)
+                exit(1)
 
             output_file.write(json.dumps(obj) + "\n")
     output_file.close()
@@ -135,8 +135,6 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
     with open(dataset_dir + "/" + filename, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
-
-            # if remove_noise argument in argumentParser() is stored as true, then remove the noise messages
 
             if arguments.remove_noise:
                 if obj["rule"]["description"] in noise_messages:
@@ -150,16 +148,16 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
                 ).timestamp()
             )
 
-            # assumes only one attack can happen at a specific time
             obj["Label"] = []
             for attack, start, end in attack_times:
-                if start <= detection_time <= end:
+                if start <= detection_time < end:
                     obj["Label"].append(attack)
 
             output_file.write(json.dumps(obj) + "\n")
     output_file.close()
 
 
+"""
 def find_correct_label(labels: list, alert_obj):
     if "webshell" in labels and "cracking" in labels:
         try:
@@ -199,6 +197,7 @@ def find_correct_label(labels: list, alert_obj):
     else:
         print("🚨 Failed to resolve labels", labels)
         SystemExit(1)
+"""
 
 
 def full_convert(
