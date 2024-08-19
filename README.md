@@ -85,8 +85,8 @@ Options:
 | ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 38 |
 
 #### After double labels are sorted out 
-| russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
-| --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
+| attack | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
+| -----  | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
 | network_scans | 0 | 0 | 0 | 0 | 9 | 0 | 0 | 0 |
 | service_scans | 200 | 130 | 60 | 33 | 2 | 107 | 129 | 158 |
 | dirb | 63 | 4481 | 4534 | 63 | 63 | 63 | 4533 | 4535 |

@@ -27,11 +27,13 @@ def print_attack_frequencies(attack_frequencies):
     Print the attack frequencies for all scenarios in a md table format.
     """
     # print the heading of the md table
+    print("| attack", end=" ")
     for scenario in scenario_options:
         if scenario == "all":
             print("|")
             break
         print("|", scenario, end=" ")
+    print("| ----- ", end=" ")
     for scenario in scenario_options:
         if scenario == "all":
             print("|")
