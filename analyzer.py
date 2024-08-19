@@ -13,18 +13,12 @@ def count_attack_freqencies(dataset_name, attack_times):
     attack_freqency = {}
     for attack, _, _ in attack_times:
         attack_freqency[attack] = 0
+    attack_freqency["benign"] = 0
 
     with open(dataset_name, "r", encoding="utf-8") as file:
         for line in file:
             obj = json.loads(line)
-            labels = obj["Label"]
-            for l in labels:
-                attack_freqency[l] += 1
-            if len(labels) > 1:
-                if str(labels) not in attack_freqency.keys():
-                    attack_freqency[str(labels)] = 1
-                else:
-                    attack_freqency[str(labels)] += 1
+            attack_freqency[obj["Label"]] += 1
     return attack_freqency
 
 
@@ -116,21 +110,23 @@ def print_attack_message_counts(attack_message_count):
 if __name__ == "__main__":
     labelfile = "labels.csv"
 
-    # attack_frequencies = []
-    # for scenario in scenario_options:
-    #     if scenario == "all":
-    #         continue
-    #     print("Analyzing scenario:", scenario)
-    #     dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
-    #     attack_times = get_attack_times(labelfile, scenario)
-    #     attack_frequencies.append(count_attack_freqencies(dataset_name, attack_times))
-
-    # print_attack_frequencies(attack_frequencies)
-
+    attack_frequencies = []
     for scenario in scenario_options:
         if scenario == "all":
             continue
-        print("\nAnalyzing scenario:", scenario)
-        dataset_name = "labeled/labeled_" + scenario + "_wazuh.json"
-        attack_message_counts = count_attack_messages(dataset_name, alarm_type="Wazuh")
-        print_attack_message_counts(attack_message_counts)
+        print("Analyzing scenario:", scenario)
+        dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
+        print("Dataset:", dataset_name)
+        attack_times = get_attack_times(labelfile, scenario)
+        print("Attack times:", attack_times)
+        attack_frequencies.append(count_attack_freqencies(dataset_name, attack_times))
+
+    print_attack_frequencies(attack_frequencies)
+
+    # for scenario in scenario_options:
+    #     if scenario == "all":
+    #         continue
+    #     print("\nAnalyzing scenario:", scenario)
+    #     dataset_name = "labeled/labeled_" + scenario + "_wazuh.json"
+    #     attack_message_counts = count_attack_messages(dataset_name, alarm_type="Wazuh")
+    #     print_attack_message_counts(attack_message_counts)
