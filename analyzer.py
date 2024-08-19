@@ -118,9 +118,7 @@ if __name__ == "__main__":
             continue
         print("Analyzing scenario:", scenario)
         dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
-        print("Dataset:", dataset_name)
         attack_times = get_attack_times(labelfile, scenario)
-        print("Attack times:", attack_times)
         attack_frequencies.append(count_attack_freqencies(dataset_name, attack_times))
 
     print_attack_frequencies(attack_frequencies)
