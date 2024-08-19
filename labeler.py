@@ -119,9 +119,9 @@ def label_aminer(filename, attack_times, dataset_dir, output_dir):
                     possible_labels.append(attack)
 
             if len(possible_labels) == 0:
-                possible_labels.append("benign")
+                obj["Label"] = "benign"
             elif len(possible_labels) == 1:
-                obj["Label"] = possible_labels
+                obj["Label"] = possible_labels[0]
             else:
                 print("🚨 Multiple labels for object", obj)
                 exit(1)
@@ -148,10 +148,13 @@ def label_wazuh(filename, attack_times, dataset_dir, output_dir):
                 ).timestamp()
             )
 
-            obj["Label"] = []
+            obj["Label"] = "benign"
             for attack, start, end in attack_times:
                 if start <= detection_time < end:
-                    obj["Label"].append(attack)
+                    if obj["Label"] != "benign":
+                        print("🚨 Multiple labels for object", obj)
+                        exit(1)
+                    obj["Label"] = attack
 
             output_file.write(json.dumps(obj) + "\n")
     output_file.close()

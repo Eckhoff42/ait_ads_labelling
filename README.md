@@ -81,23 +81,19 @@ Options:
 | benign | 578 | 1168 | 682 | 831 | 1274 | 2082 | 869 | 1017 |
 
 ### Label distribution (Wazuh)
-|attack type | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
-| ---------- | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
-| network_scans | 8 | 323 | 300 | 104 | 3 | 3 | 643 | 190 |
-| service_scans | 167 | 140 | 769 | 90 | 1 | 56 | 167 | 390 |
-| dirb | 4459 | 406083 | 411477 | 4459 | 4459 | 4459 | 413009 | 424361 |
-| wpscan | 3172 | 4985 | 4848 | 3274 | 933 | 910 | 6670 | 3247 |
+| attack | russellmitchell | fox | harrison | santos | shaw | wardbeck | wheeler | wilson |
+| -----  | --------------- | --- | -------- | ------ | ---- | -------- | ------- | ------ |
+| network_scans | 8 | 323 | 296 | 104 | 3 | 3 | 643 | 190 |
+| service_scans | 167 | 140 | 769 | 90 | 1 | 56 | 141 | 171 |
+| dirb | 4459 | 406083 | 411477 | 4459 | 4459 | 4459 | 413009 | 424350 |
+| wpscan | 3172 | 4749 | 4848 | 3274 | 729 | 750 | 6670 | 3247 |
 | webshell | 4 | 0 | 31 | 13 | 0 | 13 | 8 | 40 |
 | cracking | 10 | 554 | 1251 | 773 | 647 | 752 | 0 | 1284 |
-| reverse_shell | 0 | 0 | 19 | 6 | 3 | 6 | 26 | 20 |
+| reverse_shell | 0 | 0 | 19 | 3 | 3 | 6 | 24 | 17 |
 | privilege_escalation | 6 | 10 | 49 | 22 | 19 | 13 | 25 | 22 |
-| service_stop | 0 | 0 | 20 | 0 | 0 | 0 | 0 | 0 |
+| service_stop | 0 | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
 | dnsteal | 711 | 381 | 3236 | 831 | 105 | 17 | 461 | 2861 |
-| ['wpscan', 'dirb'] | 0 | 236 | 0 | 0 | 204 | 160 | 0 | 11 |
-| ['network_scans', 'service_scans'] | 0 | 0 | 4 | 0 | 0 | 0 | 0 | 0 |
-| ['service_stop', 'dnsteal'] | 0 | 0 | 16 | 0 | 0 | 0 | 0 | 0 |
-| ['reverse_shell', 'privilege_escalation'] | 0 | 0 | 0 | 3 | 0 | 0 | 2 | 3 |
-| ['service_scans', 'dirb'] | 0 | 0 | 0 | 0 | 0 | 0 | 26 | 219 |
+| benign | 32951 | 50283 | 161774 | 116944 | 62573 | 82135 | 182958 | 193121 |
 
 ### Message distribution for Scenario Fox (Aminer)
 ```json

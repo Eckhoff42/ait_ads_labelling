@@ -123,6 +123,17 @@ if __name__ == "__main__":
 
     print_attack_frequencies(attack_frequencies)
 
+    attack_frequencies = []
+    for scenario in scenario_options:
+        if scenario == "all":
+            continue
+        print("Analyzing scenario:", scenario)
+        dataset_name = "labeled/labeled_" + scenario + "_wazuh.json"
+        attack_times = get_attack_times(labelfile, scenario)
+        attack_frequencies.append(count_attack_freqencies(dataset_name, attack_times))
+
+    print_attack_frequencies(attack_frequencies)
+
     # for scenario in scenario_options:
     #     if scenario == "all":
     #         continue
