@@ -119,9 +119,7 @@ def label_aminer(filename, attack_times, dataset_dir, output_dir):
                     possible_labels.append(attack)
 
             if len(possible_labels) > 1:
-                print("Multiple labels found for line", obj)
                 correct_label = find_correct_label(possible_labels, obj)
-                print("correct label", correct_label)
                 obj["Label"] = correct_label
             elif len(possible_labels) == 1:
                 obj["Label"] = possible_labels[0]
@@ -172,13 +170,35 @@ def find_correct_label(labels: list, alert_obj):
         except KeyError:
             print("🚨 Failed while resolving webshell vs cracking with labels", labels)
 
-    if "wpscan" in labels and "dirb" in labels:
-        pass
-        # labels.remove("dirb")
+    elif "wpscan" in labels and "dirb" in labels:
+        try:
+            if (
+                "WPScan" in alert_obj["LogData"]["LogResources"][0]
+                or "wp-content" in alert_obj["LogData"]["LogResources"][0]
+            ):
+                return "wpscan"
+            else:
+                return "dirb"
+        except KeyError:
+            print("🚨 Failed while resolving wpscan vs dirb with labels", labels)
 
-    if "reverse_shell" in labels and "privilege_escalation" in labels:
-        pass
-        # labels.remove("privilege_escalation")
+    elif "reverse_shell" in labels and "privilege_escalation" in labels:
+        return "privilege_escalation"
+
+    elif "network_scans" in labels and "service_scans" in labels:
+        if "imap-login" in alert_obj["LogData"]["RawLogData"][0]:
+            return "service_scans"
+        elif "exim4" in alert_obj["LogData"]["LogResources"][0]:
+            return "service_scans"
+        else:
+            return "network_scans"
+
+    elif "service_scans" in labels and "dirb" in labels:
+        return "dirb"
+
+    else:
+        print("🚨 Failed to resolve labels", labels)
+        SystemExit(1)
 
 
 def full_convert(
