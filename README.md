@@ -9,7 +9,7 @@ The the label is an extra `Label` list in each jason object.
 {
   ...,
   "AMiner": {"ID": "10.35.35.206"},
-  "Label": ["dirb"]
+  "Label": "dirb"
 }
 ```
 
