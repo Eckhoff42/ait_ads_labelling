@@ -97,6 +97,17 @@ Options:
 
 ### Message distribution for Scenario Fox (Aminer)
 ```json
+"benign": {
+    "New path(es) detected": 127,
+    "New value combination(s) detected": 123,
+    "New value(s) detected": 60,
+    "Value entropy anomaly detected": 447,
+    "Value range anomaly detected": 28,
+    "Frequency anomaly detected": 250,
+    "New character(s) detected": 99,
+    "Statistical data report": 16,
+    "Frequency exceeds range for the first time": 18
+},
 "service_stop": {
     "New value combination(s) detected": 2
 },
@@ -109,9 +120,9 @@ Options:
     "New value(s) detected": 24
 },
 "wpscan": {
-    "New value(s) detected": 4748,
-    "New path(es) detected": 36,
-    "New character(s) detected": 32
+    "New value(s) detected": 4742,
+    "New path(es) detected": 30,
+    "New character(s) detected": 6
 },
 "dirb": {
     "New value(s) detected": 721,
@@ -138,6 +149,40 @@ Options:
 
 ### Message distribution for Scenario Fox (Wazuh)
 ```json
+"benign": {
+    "ClamAV database update": 1160,
+    "IDS event.": 10436,
+    "Suricata: Alert - ET POLICY GNU/Linux APT User-Agent Outbound likely related to package management": 385,
+    "Multiple IDS alerts for same id.": 174,
+    "First time this IDS alert is generated.": 38,
+    "Auditd: SELinux permission check.": 24,
+    "Multiple IDS events from same source ip.": 73,
+    "Suricata: Alert - SURICATA TLS invalid handshake message": 5136,
+    "Suricata: Alert - SURICATA TLS invalid record/traffic": 5136,
+    "Dovecot Authentication Success.": 27087,
+    "PAM: Login session closed.": 15,
+    "sshd: authentication success.": 8,
+    "PAM: Login session opened.": 19,
+    "First time user executed sudo.": 2,
+    "Successful sudo to ROOT executed.": 1,
+    "CMS (WordPress or Joomla) login attempt.": 29,
+    "PAM: User login failed.": 177,
+    "Dovecot Invalid User Login Attempt.": 189,
+    "syslog: User authentication failure.": 40,
+    "Multiple IDS alerts for same id (ignoring now this id).": 20,
+    "Suricata: Alert - ET INFO Observed DNS Query to .cloud TLD": 31,
+    "PAM: Multiple failed logins in a small period of time.": 17,
+    "Web server 400 error code.": 8,
+    "Dovecot brute force attack (multiple auth failures).": 9,
+    "Web server 500 error code (Internal Error).": 16,
+    "Suricata: Alert - SURICATA HTTP unable to match response to request": 31,
+    "Suricata: Alert - ET INFO DNS Query for Suspicious .ga Domain": 3,
+    "Suricata: Alert - ET INFO Suspicious Domain (*.ga) in TLS SNI": 3,
+    "Suricata: Alert - ET INFO Observed DNS Query to .biz TLD": 6,
+    "Suricata: Alert - SURICATA HTTP gzip decompression failed": 2,
+    "Suricata: Alert - SURICATA HTTP invalid response chunk len": 1,
+    "Suricata: Alert - ET DNS Query for .to TLD": 7
+},
 "dnsteal": {
     "Dovecot Authentication Success.": 336,
     "IDS event.": 17,
@@ -172,14 +217,13 @@ Options:
     "Multiple IDS events from same source ip.": 1
 },
 "wpscan": {
-    "Web server 400 error code.": 4589,
-    "Multiple web server 400 error codes from same source ip.": 353,
+    "Web server 400 error code.": 4380,
+    "Multiple web server 400 error codes from same source ip.": 337,
     "Apache: Attempt to access forbidden directory index.": 1,
     "Web server 500 error code (Internal Error).": 9,
-    "Apache: Attempt to access forbidden file or directory.": 10,
+    "Apache: Attempt to access forbidden file or directory.": 4,
     "Dovecot Authentication Success.": 12,
-    "Suspicious URL access.": 10,
-    "Common web attack.": 1
+    "Suspicious URL access.": 6
 },
 "dirb": {
     "Web server 400 error code.": 375637,
