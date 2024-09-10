@@ -147,6 +147,59 @@ Options:
 }
 ```
 
+### Detector distribution for Scenario Fox (Aminer)
+```json
+"benign": {
+    "NewMatchPathDetector": 127,
+    "NewMatchPathValueComboDetector": 123,
+    "NewMatchPathValueDetector": 60,
+    "EntropyDetector": 447,
+    "ValueRangeDetector": 28,
+    "EventCountClusterDetector": 224,
+    "CharsetDetector": 99,
+    "MatchValueAverageChangeDetector": 16,
+    "EventFrequencyDetector": 44
+},
+"service_stop": {
+    "NewMatchPathValueComboDetector": 2
+},
+"dnsteal": {
+    "EntropyDetector": 6,
+    "EventFrequencyDetector": 1
+},
+"service_scans": {
+    "NewMatchPathDetector": 106,
+    "NewMatchPathValueDetector": 24
+},
+"wpscan": {
+    "NewMatchPathValueDetector": 4742,
+    "NewMatchPathDetector": 30,
+    "CharsetDetector": 6
+},
+"dirb": {
+    "NewMatchPathValueDetector": 721,
+    "CharsetDetector": 2457,
+    "NewMatchPathDetector": 1300,
+    "EventCountClusterDetector": 2,
+    "EventFrequencyDetector": 1
+},
+"webshell": {
+    "EntropyDetector": 2
+},
+"cracking": {
+    "EntropyDetector": 1,
+    "EventCountClusterDetector": 3,
+    "MatchValueAverageChangeDetector": 1
+},
+"reverse_shell": {
+    "EntropyDetector": 1
+},
+"privilege_escalation": {
+    "NewMatchPathDetector": 3,
+    "NewMatchPathValueComboDetector": 4
+}
+```
+
 ### Message distribution for Scenario Fox (Wazuh)
 ```json
 "benign": {

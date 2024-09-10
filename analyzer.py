@@ -66,6 +66,7 @@ def count_attack_messages(dataset_name, alarm_type="Aminer"):
         A nested dictionary on the from: attack -> message -> frequency
     """
     attack_message_counts = {}
+    analysis_component_type = {}
 
     with open(dataset_name, "r", encoding="utf-8") as file:
         for line in file:
@@ -76,6 +77,10 @@ def count_attack_messages(dataset_name, alarm_type="Aminer"):
                     message = obj["AnalysisComponent"]["Message"]
                 except KeyError:
                     message = "no message found"
+                try:
+                    component_type = obj["AnalysisComponent"]["AnalysisComponentType"]
+                except KeyError:
+                    component_type = "no analysis component found"
             else:
                 try:
                     message = obj["rule"]["description"]
@@ -89,7 +94,15 @@ def count_attack_messages(dataset_name, alarm_type="Aminer"):
             else:
                 attack_message_counts[label][message] += 1
 
-    return attack_message_counts
+            if alarm_type == "Aminer":
+                if label not in analysis_component_type:
+                    analysis_component_type[label] = {}
+                if component_type not in analysis_component_type[label]:
+                    analysis_component_type[label][component_type] = 1
+                else:
+                    analysis_component_type[label][component_type] += 1
+
+    return attack_message_counts, analysis_component_type
 
 
 def print_attack_message_counts(attack_message_count):
@@ -142,5 +155,9 @@ if __name__ == "__main__":
         print_attack_message_counts(attack_message_counts)
 
         dataset_name = "labeled/labeled_" + scenario + "_aminer.json"
-        attack_message_counts = count_attack_messages(dataset_name, alarm_type="Aminer")
+        attack_message_counts, analysis_component_type = count_attack_messages(
+            dataset_name, alarm_type="Aminer"
+        )
+
         print_attack_message_counts(attack_message_counts)
+        print_attack_message_counts(analysis_component_type)
